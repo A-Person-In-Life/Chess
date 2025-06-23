@@ -1,6 +1,3 @@
-
-
-
 def create_board():
     board = [
         ["r", "n", "b", "q", "k", "b", "n", "r"],
