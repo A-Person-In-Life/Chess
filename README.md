@@ -1,15 +1,15 @@
 # Chess
 
-To Do
+# To Do
 
-add moving rules per piece (make sure ending area is enemy or blank)
-add win con
-add check
-promotion
-castling
-en passent 
+Add moving rules per piece (make sure ending area is enemy or blank)
+Add win con
+Add check
+Promotion
+Castling
+Wn passent 
 
- Bonuses  
+# Bonuses  
 Undo 
 AI opponent
 
