@@ -182,7 +182,18 @@ class BoardState:
         if move.piece.name == "King":
             self.kingPos[move.piece.color] = (move.startRow, move.startCol)
         self.turn = "white" if self.turn == "black" else "black"
-        
+    
+    def is_checkmate(self, color):
+        if not self.in_check(color):
+            return False
+        for r in range(8):
+            for c in range(8):
+                piece = self.getPiece(r,c)
+                if piece and piece.color == color:
+                    if self.get_legal_moves(r,c):
+                        return False 
+        return True
+
     def is_legal_move(self, r1, c1, r2, c2):
         piece = self.getPiece(r1, c1)
         if piece is None or piece.color != self.turn:
@@ -203,7 +214,6 @@ class BoardState:
         for r2, c2 in piece.get_moves(self, row, col):
             if self.is_legal_move(row, col, r2, c2):
                 legal.append((r2, c2))
-                
         return legal
 
     def is_cell_attacked(self, row, col, by_color):
@@ -220,6 +230,5 @@ class BoardState:
         opponent_color = "white" if color == "black" else "black"
         return self.is_cell_attacked(kingRow, kingCol, opponent_color)
         
-
     def getPiece(self, row, col):
         return self.grid[row][col]

@@ -3,12 +3,13 @@ import pygame
 
 WIDTH, HEIGHT = 800, 800
 CELL_SIZE = WIDTH // 8
-COLORS = [(109, 129, 150), (210, 180, 140), (100, 100, 100)]
+COLORS = [(109, 129, 150), (210, 180, 140), (100, 100, 100), (0,0,0), (118, 118, 118)]
 ROWS, COLS = 8, 8
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
+fonts = [pygame.font.SysFont('Arial', 56)]
 
 board = BoardState()
 selected = None
@@ -53,14 +54,31 @@ def draw():
             piece = board.getPiece(r,c)
             if piece:
                 screen.blit(images[piece.name + piece.color[0].upper()],(c*CELL_SIZE,r*CELL_SIZE))
+
+def drawWin(color):
+    x = WIDTH/3
+    y = HEIGHT/3
+    w = WIDTH/3
+    h = HEIGHT/8
+    rect = pygame.Rect(x, y, w, h)
+    rect.center = WIDTH / 2, HEIGHT / 2
+
+    pygame.draw.rect(screen, COLORS[4], rect, border_radius=10)
+    text = fonts[0].render(f"{color} Wins!", True, COLORS[3])#text, antialias, color(rgb)
+
+    pygame.Surface.blit(screen, text, (rect.topleft[0]+10, rect.topleft[1]+15))
                 
 running = True
+ended = False
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
             
         if event.type == pygame.MOUSEBUTTONDOWN:
+            if ended:
+                running = False
+                continue
             col, row = pygame.mouse.get_pos()
             col, row = col // CELL_SIZE, row // CELL_SIZE
             if selected is None:
@@ -69,10 +87,18 @@ while running:
                     selected = (row, col)
                     
             else:
-                board.move(selected[0], selected[1], row, col)
+                if board.is_legal_move(selected[0], selected[1], row, col):
+                    board.simulate_move(selected[0], selected[1], row, col)    
+                    moveSound.play()
+                else:
+                    #add invalid move feedback
+                    pass
                 selected = None
 
     draw()
+    if board.is_checkmate(board.turn):
+        drawWin("White" if board.turn == "black" else "Black")
+        ended = True
     pygame.display.flip()
     clock.tick(60)
 pygame.quit()
