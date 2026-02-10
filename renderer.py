@@ -14,18 +14,18 @@ board = BoardState()
 selected = None
 
 images = {
-            "PawnW" : pygame.image.load("assets/images/white_pawn.png").convert_alpha(),
-            "PawnB" : pygame.image.load("assets/images/black_pawn.png").convert_alpha(),
-            "BishopW": pygame.image.load("assets/images/white_bishop.png").convert_alpha(),
-            "BishopB": pygame.image.load("assets/images/black_bishop.png").convert_alpha(),
-            "RookW": pygame.image.load("assets/images/white_rook.png").convert_alpha(),
-            "RookB": pygame.image.load("assets/images/black_rook.png").convert_alpha(),
-            "QueenW": pygame.image.load("assets/images/white_queen.png").convert_alpha(),
-            "QueenB": pygame.image.load("assets/images/black_queen.png").convert_alpha(),
-            "KnightW": pygame.image.load("assets/images/white_knight.png").convert_alpha(),
-            "KnightB": pygame.image.load("assets/images/black_knight.png").convert_alpha(),
-            "KingW": pygame.image.load("assets/images/white_king.png").convert_alpha(),
-            "KingB": pygame.image.load("assets/images/black_king.png").convert_alpha(),
+            "PawnW" : pygame.image.load("assets/images/white_pawn.bmp"),
+            "PawnB" : pygame.image.load("assets/images/black_pawn.bmp"),
+            "BishopW": pygame.image.load("assets/images/white_bishop.bmp"),
+            "BishopB": pygame.image.load("assets/images/black_bishop.bmp"),
+            "RookW": pygame.image.load("assets/images/white_rook.bmp"),
+            "RookB": pygame.image.load("assets/images/black_rook.bmp"),
+            "QueenW": pygame.image.load("assets/images/white_queen.bmp"),
+            "QueenB": pygame.image.load("assets/images/black_queen.bmp"),
+            "KnightW": pygame.image.load("assets/images/white_knight.bmp"),
+            "KnightB": pygame.image.load("assets/images/black_knight.bmp"),
+            "KingW": pygame.image.load("assets/images/white_king.bmp"),
+            "KingB": pygame.image.load("assets/images/black_king.bmp"),
             }
 
 captureSound = pygame.mixer.Sound("assets/sound/capture.mp3")
@@ -69,7 +69,7 @@ while running:
                     selected = (row, col)
                     
             else:
-                board.move(selected[0], selected[1], row, col)
+                board.move(selected[0],selected[1],row, col)
                 selected = None
 
     draw()
